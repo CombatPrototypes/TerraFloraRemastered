@@ -420,7 +420,7 @@ Animator:
   m_GameObject: {fileID: 1457251807}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ce53a38db159d5c4db555a9f0e60cbd6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0ff42d2a95313fb44898c92ef421f198, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -439,6 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1754160216}
   - component: {fileID: 1754160217}
+  - component: {fileID: 1754160218}
   m_Layer: 0
   m_Name: Components
   m_TagString: Untagged
@@ -476,3 +477,24 @@ MonoBehaviour:
   playerObjTransform: {fileID: 270037009}
   _moveVector: {x: 0, y: 0}
   _moveSpeed: 0.03
+  attacking: 0
+--- !u!114 &1754160218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754160215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd004b69cbc6da4788409d4533dc654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1457251810}
+  floatParameters:
+  - name: StartAttackThree
+    value: 0
+  - name: StartAttackTwo
+    value: 0
+  - name: StartAttackOne
+    value: 0

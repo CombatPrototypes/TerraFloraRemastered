@@ -14,7 +14,8 @@ public class BasicMovement : MonoBehaviour
     public Vector2 _moveVector = Vector2.zero;
     public float _moveSpeed = 0.5f;
 
-    bool attacking = false;
+    public bool attacking = false;
+    bool attack1 = false;
 
     void Awake()
     {
@@ -24,13 +25,18 @@ public class BasicMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Working");
+        attacking = anim.GetBool("Attacking");
+
         if (!attacking)
         {
             MovePlayer(_moveVector);
         }
 
-        AnimHandler(_moveVector, attacking);
+
+
+
+
+        AnimHandler(_moveVector, attack1);
     }
 
 
@@ -80,11 +86,11 @@ public class BasicMovement : MonoBehaviour
             anim.SetBool("Moving", false);
         }
 
-        if (attack)
-        {
-            anim.SetTrigger("BasicAttack");
-            attacking = false;
-        }
+        //if (attack1)
+        //{
+        //    PlayAttack1Animation();
+        //}
+
     }
 
 
@@ -96,14 +102,37 @@ public class BasicMovement : MonoBehaviour
         controller.Enable();
 
         controller.Traversal.WASD.performed += WASD_performed;
+        controller.Combat.Attack.started += Attack_started;
         controller.Combat.Attack.performed += Attack_performed;
+        controller.Combat.Attack.canceled += Attack_canceled;
+
+        controller.Combat.HeavyAttack.started += HeavyAttack_started;
+        controller.Combat.HeavyAttack.performed += HeavyAttack_performed;
+        controller.Combat.HeavyAttack.canceled += HeavyAttack_canceled;
+
+        controller.Combat.ThirdAttack.started += ThirdAttack_started;
+        controller.Combat.ThirdAttack.performed += ThirdAttack_performed;
+        controller.Combat.ThirdAttack.canceled += ThirdAttack_canceled;
+
     }
 
+    
 
     private void OnDisable()
     {
         controller.Traversal.WASD.performed -= WASD_performed;
+
+        controller.Combat.Attack.started -= Attack_started;
         controller.Combat.Attack.performed -= Attack_performed;
+        controller.Combat.Attack.canceled -= Attack_canceled;
+
+        controller.Combat.HeavyAttack.started -= HeavyAttack_started;
+        controller.Combat.HeavyAttack.performed -= HeavyAttack_performed;
+        controller.Combat.HeavyAttack.canceled -= HeavyAttack_canceled;
+
+        controller.Combat.ThirdAttack.started -= ThirdAttack_started;
+        controller.Combat.ThirdAttack.performed -= ThirdAttack_performed;
+        controller.Combat.ThirdAttack.canceled -= ThirdAttack_canceled;
 
         controller.Disable();
     }
@@ -119,11 +148,142 @@ public class BasicMovement : MonoBehaviour
             _moveVector = Vector2.zero;
         }
     }
-    
-    
-    
-    private void Attack_performed(InputAction.CallbackContext obj)
+
+
+    private void Attack_started(InputAction.CallbackContext ctx)
     {
-        attacking = true;
+        if(ctx.interaction is TapInteraction)
+        {
+            if(!attacking)
+            {
+                anim.SetTrigger("StartAttackOne");
+                Debug.Log("Tap Started");
+                anim.SetBool("Attacking", true);
+            }
+            else
+            {
+                Debug.Log("Already attacking");
+            }
+        }
     }
+
+
+    private void Attack_performed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is HoldInteraction)
+        {
+            Debug.Log("Hold performed");
+            anim.SetBool("AttackOnePerformed", true);
+        }
+        else if (ctx.interaction is TapInteraction)
+        {
+            Debug.Log("Tap performed");
+            anim.SetBool("AttackOnePerformed", true);
+        }
+    }
+
+
+    private void Attack_canceled(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is HoldInteraction)
+        {
+            anim.SetBool("AttackOnePerformed", true);
+        }
+        else if(ctx.interaction is TapInteraction)
+        { 
+            anim.SetBool("AttackOneCharging", true);
+        }
+    }
+
+    private void HeavyAttack_started(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is TapInteraction)
+        {
+            if (!attacking)
+            {
+                anim.SetTrigger("StartAttackTwo");
+                Debug.Log("Tap Started");
+                anim.SetBool("Attacking", true);
+            }
+            else
+            {
+                Debug.Log("Already attacking");
+            }
+        }
+    }
+
+
+    private void HeavyAttack_performed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is HoldInteraction)
+        {
+            Debug.Log("Hold performed");
+            anim.SetBool("AttackTwoPerformed", true);
+        }
+        else if (ctx.interaction is TapInteraction)
+        {
+            Debug.Log("Tap performed");
+            anim.SetBool("AttackTwoPerformed", true);
+        }
+    }
+
+
+    private void HeavyAttack_canceled(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is HoldInteraction)
+        {
+            anim.SetBool("AttackTwoPerformed", true);
+        }
+        else if (ctx.interaction is TapInteraction)
+        {
+            anim.SetBool("AttackTwoCharging", true);
+        }
+    }
+
+    private void ThirdAttack_started(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is TapInteraction)
+        {
+            if (!attacking)
+            {
+                anim.SetTrigger("StartAttackThree");
+                Debug.Log("Tap Started");
+                anim.SetBool("Attacking", true);
+            }
+            else
+            {
+                Debug.Log("Already attacking");
+            }
+        }
+    }
+
+    private void ThirdAttack_performed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.interaction is HoldInteraction)
+        {
+            Debug.Log("Hold performed");
+            anim.SetBool("AttackThreePerformed", true);
+        }
+        else if (ctx.interaction is TapInteraction)
+        {
+            Debug.Log("Tap performed");
+            anim.SetBool("AttackThreePerformed", true);
+        }
+    }
+
+    private void ThirdAttack_canceled(InputAction.CallbackContext ctx)
+    {
+    
+        if (ctx.interaction is HoldInteraction)
+        {
+            anim.SetBool("AttackThreePerformed", true);
+        }
+        else if (ctx.interaction is TapInteraction)
+        {
+            anim.SetBool("AttackThreeCharging", true);
+        }
+    }
+
+
+
 }

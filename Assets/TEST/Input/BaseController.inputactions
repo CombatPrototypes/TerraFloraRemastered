@@ -83,6 +83,22 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "HeavyAttack",
+                    "type": "Button",
+                    "id": "a7d7f092-55b1-400f-9c9f-9a287ad40b9c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ThirdAttack",
+                    "type": "Button",
+                    "id": "cebec307-a758-4f2e-8ee3-a65530a4ea37",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -90,10 +106,32 @@
                     "name": "",
                     "id": "0f4012b9-18db-413f-bd3a-1a726aef912a",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Tap,Hold(duration=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bef21bdd-4432-4aef-9a6e-2d1374aca7db",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Tap,Hold(duration=4)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9d6dff5-13fe-42d7-a352-3797e9e3fdfd",
+                    "path": "<Keyboard>/z",
+                    "interactions": "Tap,Hold(duration=5)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThirdAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -96,6 +96,22 @@ public class @BaseController : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""HeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7d7f092-55b1-400f-9c9f-9a287ad40b9c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ThirdAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""cebec307-a758-4f2e-8ee3-a65530a4ea37"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -103,10 +119,32 @@ public class @BaseController : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""0f4012b9-18db-413f-bd3a-1a726aef912a"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap,Hold(duration=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bef21bdd-4432-4aef-9a6e-2d1374aca7db"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Tap,Hold(duration=4)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9d6dff5-13fe-42d7-a352-3797e9e3fdfd"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Tap,Hold(duration=5)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThirdAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,6 +159,8 @@ public class @BaseController : IInputActionCollection, IDisposable
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_Attack = m_Combat.FindAction("Attack", throwIfNotFound: true);
+        m_Combat_HeavyAttack = m_Combat.FindAction("HeavyAttack", throwIfNotFound: true);
+        m_Combat_ThirdAttack = m_Combat.FindAction("ThirdAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,11 +244,15 @@ public class @BaseController : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Combat;
     private ICombatActions m_CombatActionsCallbackInterface;
     private readonly InputAction m_Combat_Attack;
+    private readonly InputAction m_Combat_HeavyAttack;
+    private readonly InputAction m_Combat_ThirdAttack;
     public struct CombatActions
     {
         private @BaseController m_Wrapper;
         public CombatActions(@BaseController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack => m_Wrapper.m_Combat_Attack;
+        public InputAction @HeavyAttack => m_Wrapper.m_Combat_HeavyAttack;
+        public InputAction @ThirdAttack => m_Wrapper.m_Combat_ThirdAttack;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -221,6 +265,12 @@ public class @BaseController : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnAttack;
+                @HeavyAttack.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnHeavyAttack;
+                @ThirdAttack.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnThirdAttack;
+                @ThirdAttack.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnThirdAttack;
+                @ThirdAttack.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnThirdAttack;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -228,6 +278,12 @@ public class @BaseController : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @HeavyAttack.started += instance.OnHeavyAttack;
+                @HeavyAttack.performed += instance.OnHeavyAttack;
+                @HeavyAttack.canceled += instance.OnHeavyAttack;
+                @ThirdAttack.started += instance.OnThirdAttack;
+                @ThirdAttack.performed += instance.OnThirdAttack;
+                @ThirdAttack.canceled += instance.OnThirdAttack;
             }
         }
     }
@@ -239,5 +295,7 @@ public class @BaseController : IInputActionCollection, IDisposable
     public interface ICombatActions
     {
         void OnAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnThirdAttack(InputAction.CallbackContext context);
     }
 }
