@@ -17,6 +17,11 @@ public class BasicMovement : MonoBehaviour
     public bool attacking = false;
     bool attack1 = false;
 
+
+    public GameObject attackOneParticles;
+    public ParticleSystem AT1_PS1;
+    public ParticleSystem AT1_PS2;
+
     void Awake()
     {
         controller = new BaseController();
@@ -174,6 +179,8 @@ public class BasicMovement : MonoBehaviour
         {
             Debug.Log("Hold performed");
             anim.SetBool("AttackOnePerformed", true);
+            AT1_PS1.Stop();
+            AT1_PS2.Stop();
         }
         else if (ctx.interaction is TapInteraction)
         {
@@ -188,10 +195,14 @@ public class BasicMovement : MonoBehaviour
         if (ctx.interaction is HoldInteraction)
         {
             anim.SetBool("AttackOnePerformed", true);
+            AT1_PS1.Stop();
+            AT1_PS2.Stop();
         }
         else if(ctx.interaction is TapInteraction)
         { 
             anim.SetBool("AttackOneCharging", true);
+            AT1_PS1.Play();
+            AT1_PS2.Play();
         }
     }
 
