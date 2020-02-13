@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyPooler : MonoBehaviour
 {
-    public Transform ChaserHolder;
-    public Transform FlyerHolder;
-    public Transform TurretHolder;
-    public Transform BackupHolder;
+    //public Transform ChaserHolder;
+    //public Transform FlyerHolder;
+    //public Transform TurretHolder;
+    //public Transform BackupHolder;
 
 
     [System.Serializable]
@@ -16,6 +16,7 @@ public class EnemyPooler : MonoBehaviour
         public string tag;
         public GameObject prefab;
         public int size;
+        public Transform poolHolder;
     }
 
 
@@ -37,30 +38,11 @@ public class EnemyPooler : MonoBehaviour
 
         foreach (Pool pool in pools)
         {
-            Transform temp;
-
-            if (pool.tag == "Chaser")
-            {
-                temp = ChaserHolder;
-            }
-            else if(pool.tag == "Flyer")
-            {
-                temp = FlyerHolder;
-            }
-            else if(pool.tag == "Turret")
-            {
-                temp = TurretHolder;
-            }
-            else
-            {
-                temp = BackupHolder;
-            }
-
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab, temp);
+                GameObject obj = Instantiate(pool.prefab, pool.poolHolder);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }

@@ -7,7 +7,7 @@ public class EnemyInitializer : MonoBehaviour
     public SOEnemy enemyType;
 
     GameObject modelHolder;
-    public string poolTag;
+    private string poolTag;
 
     Vector3 position;
     Quaternion rotation;
