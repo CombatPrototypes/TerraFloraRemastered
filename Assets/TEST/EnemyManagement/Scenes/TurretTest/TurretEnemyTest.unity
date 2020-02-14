@@ -555,7 +555,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a51da1c57e591c438d13d7ae8a02749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingState: {fileID: 11400000, guid: 3e84ddde299fc9e4db13a02296d901ee, type: 2}
+  startingState: {fileID: 11400000, guid: 03cc1253a0483144ca56ce81ca913416, type: 2}
+  currentState: {fileID: 0}
+  remainState: {fileID: 11400000, guid: 1a05f065b234c594cb6d2c22048116bc, type: 2}
+  maxNum: 3
+  minNum: -3
+  currentNum: 0
 --- !u!4 &1363184283
 Transform:
   m_ObjectHideFlags: 0

@@ -12,10 +12,12 @@ namespace StateCode.ScriptableObjs
         public string Name = " ";
 
         public SO_Behaviour[] Behaviours;
+        public SO_Transition[] Transitions;
 
         public void UpdateState(StateController controller)
         {
             DoActions(controller);
+            ProcessTransitions(controller);
         }
 
         private void DoActions(StateController controller)
@@ -25,5 +27,24 @@ namespace StateCode.ScriptableObjs
                 Behaviours[i].Action(controller);
             }
         }
+
+        public void ProcessTransitions(StateController controller)
+        {
+            foreach (var transition in Transitions)
+            {
+                bool decisionSuccess = transition.ShouldTransition(controller);
+
+                if (decisionSuccess)
+                {
+                    controller.ChangeState(transition.trueState);
+                }
+                else
+                {
+                    controller.ChangeState(transition.falseState);
+                }
+            }
+        }
+
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateCode.Interfaces;
+using StateCode.ScriptableObjs;
 
 
 
@@ -9,27 +9,28 @@ namespace StateCode.Base
 {
     public class StateMachine
     {
-        public StateMachine(IState startingState) => ChangeState(startingState);
+        public StateController controller;
+        public StateMachine(SO_State startingState) => ChangeState(startingState);
 
-        public IState CurrentState { get; private set; }
+        public SO_State CurrentState { get; private set; }
 
-        public void ChangeState(IState state)
+        public void ChangeState(SO_State state)
         {
-            CurrentState?.onExit();
+            //CurrentState?.onExit();
 
             CurrentState = state;
 
-            CurrentState?.onEnter();
+            //CurrentState?.onEnter();
         }
 
         public void Tick()
         {
-            IState nextState = CurrentState.ProcessTransitions();
+            //SO_State nextState = CurrentState.ProcessTransitions(controller);
 
-            if (nextState != null)
-            {
-                ChangeState(nextState);
-            }
+            //if (nextState != null)
+            //{
+            //    ChangeState(nextState);
+            //}
         }
     }
 }

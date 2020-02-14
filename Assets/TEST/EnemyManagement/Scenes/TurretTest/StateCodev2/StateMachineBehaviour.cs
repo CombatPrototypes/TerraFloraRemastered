@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateCode.ScriptableObjs;
 
 namespace StateCode.Base
 {
     public class StateMachineBehaviour : MonoBehaviour
     {
-        public State m_StartingState = null;
+        public SO_State m_StartingState = null;
 
         private StateMachine m_StateMachine;
 
@@ -23,6 +24,6 @@ namespace StateCode.Base
 
         private void Update() => StateMachine.Tick();
 
-        public void ChangeState(State state) => StateMachine.ChangeState(state);
+        public void ChangeState(SO_State state) => StateMachine.ChangeState(state);
     }
 }

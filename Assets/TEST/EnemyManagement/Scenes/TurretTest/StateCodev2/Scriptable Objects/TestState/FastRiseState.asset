@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6c4c91d1f8a94c419d81a79d9218635, type: 3}
-  m_Name: Alerted-Transition
+  m_Script: {fileID: 11500000, guid: fa06606600499c348a59351d0d2198d6, type: 3}
+  m_Name: FastRiseState
   m_EditorClassIdentifier: 
-  Name: ' Found Target'
-  conditions:
-  - {fileID: 11400000, guid: de727a4c06f842a41a29ed5b0b17aa9a, type: 2}
-  - {fileID: 0}
+  Name: ' '
+  Behaviours:
+  - {fileID: 11400000, guid: 6e14490f9e7d72d47a7a6c7ab9b83fc1, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: f22bf5b54e528024c919d4877517bc64, type: 2}

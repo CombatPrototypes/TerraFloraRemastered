@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa06606600499c348a59351d0d2198d6, type: 3}
-  m_Name: RisingState
+  m_Script: {fileID: 11500000, guid: f2e7a76313b1048409ca89e167bcbe4d, type: 3}
+  m_Name: FastRisingBehaviour
   m_EditorClassIdentifier: 
-  Name: Raise Up Slow
-  Behaviours:
-  - {fileID: 11400000, guid: 47cb12a874c391649b9ee891403d9e53, type: 2}
+  distance: 1
