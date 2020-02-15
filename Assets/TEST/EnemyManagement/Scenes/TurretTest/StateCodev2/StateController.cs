@@ -5,33 +5,19 @@ using StateCode.ScriptableObjs;
 
 namespace StateCode.Base
 {
+    [RequireComponent(
+        typeof(Rigidbody), 
+        typeof(StateMachineBehaviour)
+        )]
     public class StateController : MonoBehaviour
     {
-        public SO_State startingState = null;
+        public SO_EntityStats stats = null;
+        public Rigidbody _rigidbody;
+        public StateMachine _stateMachine;
 
-        public SO_State currentState;
-        public SO_State remainState;
-
-        public float maxNum = 3;
-        public float minNum = -3;
-        public float currentNum = 0;
-
-        private void Awake()
+        private void Reset()
         {
-            currentState = startingState;
-        }
-
-        private void Update()
-        {
-            currentState?.UpdateState(this);
-        }
-
-        public void ChangeState(SO_State nextState)
-        {
-            if(nextState != remainState)
-            {
-                currentState = nextState;
-            }
+            _rigidbody = GetComponent<Rigidbody>();
         }
     }
 }

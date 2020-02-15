@@ -9,28 +9,57 @@ namespace StateCode.Base
 {
     public class StateMachine
     {
+        public StateMachine(SO_State _startingState, SO_State _remainState, StateController _controller)
+        {
+            controller = _controller;
+            
+            remainState = _remainState;
+            ChangeState(_startingState);
+            ConnectToController(this);
+        }
+
+
+
         public StateController controller;
-        public StateMachine(SO_State startingState) => ChangeState(startingState);
 
         public SO_State CurrentState { get; private set; }
 
-        public void ChangeState(SO_State state)
-        {
-            //CurrentState?.onExit();
+        public SO_State remainState;
 
-            CurrentState = state;
+        public SO_State nextState;
 
-            //CurrentState?.onEnter();
-        }
 
         public void Tick()
         {
-            //SO_State nextState = CurrentState.ProcessTransitions(controller);
-
-            //if (nextState != null)
-            //{
-            //    ChangeState(nextState);
-            //}
+            CurrentState?.UpdateState(controller, this);
         }
+        public void ChangeState(SO_State state)
+        {
+            CurrentState?.onExit(controller);
+
+            CurrentState = state;
+
+            CurrentState?.onEnter(controller);
+        }
+
+        public void SetStateToCheck(SO_State state)
+        {
+            if (state == remainState)
+            {
+                return;
+            }
+            else
+            {
+                nextState = state;
+                ChangeState(nextState);
+            }
+
+        }
+
+        public void ConnectToController(StateMachine machine)
+        {
+            controller._stateMachine = machine;
+        }
+
     }
 }

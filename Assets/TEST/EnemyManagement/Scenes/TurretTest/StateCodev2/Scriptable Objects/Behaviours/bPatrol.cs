@@ -9,6 +9,8 @@ public class bPatrol : SO_Behaviour
 {
     public float distance = 0;
 
+    public List<GameObject> waypoints = new List<GameObject>();
+
     public override void Action(StateController controller)
     {
         controller.gameObject.transform.position += Vector3.up * distance * Time.deltaTime;

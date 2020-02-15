@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Fast Rise
   m_EditorClassIdentifier: 
   distance: 1
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

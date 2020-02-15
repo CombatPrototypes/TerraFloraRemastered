@@ -14,10 +14,40 @@ namespace StateCode.ScriptableObjs
         public SO_Behaviour[] Behaviours;
         public SO_Transition[] Transitions;
 
-        public void UpdateState(StateController controller)
+
+        public SO_Behaviour OnEnterBehaviour;
+        public SO_Behaviour OnExitBehaviour;
+        
+
+        public void onEnter(StateController controller)
+        {
+            if(OnEnterBehaviour == null)
+            {
+                return;
+            }
+            else
+            {
+                OnEnterBehaviour.Action(controller);
+            }
+        }
+        
+        public void onExit(StateController controller)
+        {
+            if(OnEnterBehaviour == null)
+            {
+                return;
+            }
+            else
+            {
+                OnExitBehaviour.Action(controller);
+            }
+        }
+
+
+        public void UpdateState(StateController controller, StateMachine stateMachine)
         {
             DoActions(controller);
-            ProcessTransitions(controller);
+            ProcessTransitions(controller, stateMachine);
         }
 
         private void DoActions(StateController controller)
@@ -28,7 +58,7 @@ namespace StateCode.ScriptableObjs
             }
         }
 
-        public void ProcessTransitions(StateController controller)
+        public void ProcessTransitions(StateController controller, StateMachine stateMachine)
         {
             foreach (var transition in Transitions)
             {
@@ -36,11 +66,11 @@ namespace StateCode.ScriptableObjs
 
                 if (decisionSuccess)
                 {
-                    controller.ChangeState(transition.trueState);
+                    stateMachine.SetStateToCheck(transition.trueState);
                 }
                 else
                 {
-                    controller.ChangeState(transition.falseState);
+                    stateMachine.SetStateToCheck(transition.falseState);
                 }
             }
         }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SlowToFastTransition
   m_EditorClassIdentifier: 
   conditions:
-  - {fileID: 11400000, guid: 7d7231a0aafd0344ba335bb87b1651c4, type: 2}
+  - {fileID: 11400000, guid: 3d52bd6f03bf1df4b9e16d6f1208ac0a, type: 2}
   trueState: {fileID: 11400000, guid: ae4b5e1d0d3876947bdd22443effc02d, type: 2}
   falseState: {fileID: 11400000, guid: 1a05f065b234c594cb6d2c22048116bc, type: 2}

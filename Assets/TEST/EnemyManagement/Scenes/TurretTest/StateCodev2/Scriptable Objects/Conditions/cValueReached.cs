@@ -17,32 +17,7 @@ public class cValueReached : SO_Condition
 
     bool CompareValues(StateController controller)
     {
-        float valToCheck = checkMax ? controller.maxNum : controller.minNum;
-        float current = controller.currentNum;
-
-
-        if (checkMax && current < valToCheck)
-        {
-            controller.currentNum += Time.deltaTime;
-            return false;
-        }
-        else if (checkMax && current >= valToCheck)
-        {
-            controller.currentNum = 0;
-            return true;
-        }
-
-        if (!checkMax && current > valToCheck)
-        {
-            controller.currentNum -= Time.deltaTime;
-            return false;
-        }
-        else if(!checkMax && current <= valToCheck)
-        {
-            controller.currentNum = 0;
-            return true;
-        }
-
+        
         return false;
     }
 }
